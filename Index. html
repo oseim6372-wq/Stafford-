@@ -1,1 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stafford Enterprise — Concrete Block Manufacturers</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0d0c0b;
+  --ink2: #2a2623;
+  --mid: #6b6560;
+  --muted: #a89e96;
+  --dust: #ede8e3;
+  --cream: #f7f4f0;
+  --white: #fdfcfb;
+  --fire: #d9450c;
+  --fire2: #b83a0a;
+  --amber: #e8a020;
+  --sage: #3a7d5c;
+  --border: rgba(13,12,11,.1);
+  --border2: rgba(13,12,11,.06);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--dust)}
+::-webkit-scrollbar-thumb{background:var(--fire);border-radius:2px}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:90;padding:0 3rem;height:68px;display:flex;align-items:center;justify-content:space-between;background:rgba(247,244,240,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border2);transition:box-shadow .3s}
+.nav.scrolled{box-shadow:0 4px 40px rgba(13,12,11,.08)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:900;letter-spacing:-.01em;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.nav-logo em{color:var(--fire);font-style:normal}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-size:.78rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1.5px;background:var(--fire);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-btn{font-size:.76rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;background:var(--fire);color:var(--white);border:none;padding:.6rem 1.5rem;cursor:pointer;border-radius:2px;transition:background .2s,transform .15s}
+.nav-btn:hover{background:var(--fire2);transform:translateY(-1px)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;background:var(--ink);position:relative;overflow:hidden;padding-top:68px}
+.hero-left{padding:6rem 4rem 4rem;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+.hero-right{position:relative;overflow:hidden}
+.hero-bg-pattern{position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,.012) 40px,rgba(255,255,255,.012) 80px);z-index:1}
+.hero-glow{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(217,69,12,.22) 0%,transparent 65%);bottom:-200px;left:-100px;z-index:1}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--fire);margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem;position:relative;z-index:2}
+.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--fire)}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3.5rem,7vw,6.5rem);font-weight:900;line-height:.92;color:var(--white);margin-bottom:2rem;position:relative;z-index:2}
+.hero-title .ghost{-webkit-text-stroke:1px rgba(255,255,255,.2);color:transparent;display:block}
+.hero-desc{font-size:1.0rem;font-weight:300;line-height:1.75;color:rgba(255,255,255,.55);max-width:420px;margin-bottom:2.5rem;position:relative;z-index:2}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;position:relative;z-index:2}
+.btn-fire{font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;background:var(--fire);color:var(--white);border:none;padding:1rem 2rem;cursor:pointer;border-radius:2px;transition:background .2s,transform .15s;text-decoration:none;display:inline-block}
+.btn-fire:hover{background:var(--fire2);transform:translateY(-2px)}
+.btn-ghost{font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;background:transparent;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);padding:1rem 2rem;cursor:pointer;border-radius:2px;transition:all .2s;text-decoration:none;display:inline-block}
+.btn-ghost:hover{border-color:var(--fire);color:var(--fire)}
+.hero-blocks-visual{position:absolute;inset:0;display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(7,1fr);gap:4px;padding:4px;transform:skewY(-3deg) scale(1.1);transform-origin:center;opacity:.6}
+.hb{border-radius:2px;transition:opacity .3s}
+
+/* ── STATS ── */
+.stats{background:var(--fire);padding:1.2rem 3rem;display:flex;justify-content:space-around;flex-wrap:wrap;gap:1rem}
+.stat{display:flex;flex-direction:column;align-items:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--white)}
+.stat-l{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-top:.1rem}
+
+/* ── SECTIONS ── */
+section{padding:6rem 3rem}
+.sec-eyebrow{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--fire);margin-bottom:.8rem;display:flex;align-items:center;gap:.7rem}
+.sec-eyebrow::before{content:'';width:24px;height:1px;background:var(--fire)}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,3.5rem);font-weight:900;line-height:1;margin-bottom:1rem;color:var(--ink)}
+.sec-sub{font-size:.95rem;font-weight:300;color:var(--mid);line-height:1.75;max-width:500px}
+
+/* ── PRODUCTS ── */
+#products{background:var(--white)}
+.products-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
+.p-card{background:var(--cream);border:1px solid var(--border);border-radius:4px;padding:2rem;position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s,background .3s;cursor:default}
+.p-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--fire),var(--amber));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.p-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(13,12,11,.1);background:var(--white)}
+.p-card:hover::after{transform:scaleX(1)}
+.p-icon{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;width:54px;height:36px;margin-bottom:1.5rem}
+.pi{border-radius:2px}
+.p-name{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:.5rem;color:var(--ink)}
+.p-desc{font-size:.84rem;color:var(--mid);line-height:1.65;margin-bottom:1.2rem}
+.p-specs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.spec{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--fire);background:rgba(217,69,12,.07);border:1px solid rgba(217,69,12,.18);padding:.22rem .6rem;border-radius:2px}
+.avail-tag{display:inline-flex;align-items:center;gap:.4rem;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .7rem;border-radius:20px;margin-top:.2rem}
+.avail-tag.in-stock{background:rgba(58,125,92,.1);color:var(--sage);border:1px solid rgba(58,125,92,.25)}
+.avail-tag.limited{background:rgba(232,160,32,.1);color:var(--amber);border:1px solid rgba(232,160,32,.25)}
+.avail-tag.out{background:rgba(217,69,12,.1);color:var(--fire);border:1px solid rgba(217,69,12,.25)}
+.avail-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ── CATALOG BANNER ── */
+.cat-banner{background:var(--ink);padding:3rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;position:relative;overflow:hidden}
+.cat-banner::before{content:'';position:absolute;right:-100px;top:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(217,69,12,.15) 0%,transparent 65%);pointer-events:none}
+.cat-banner-text{position:relative;z-index:1}
+.cat-banner-title{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--white);margin-bottom:.4rem}
+.cat-banner-sub{font-size:.88rem;color:rgba(255,255,255,.45)}
+.btn-catalog{font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;background:var(--fire);color:var(--white);border:none;padding:1rem 2.2rem;cursor:pointer;border-radius:2px;text-decoration:none;display:inline-flex;align-items:center;gap:.6rem;transition:background .2s,transform .15s;white-space:nowrap;position:relative;z-index:1}
+.btn-catalog:hover{background:var(--fire2);transform:translateY(-2px)}
+.btn-catalog svg{width:16px;height:16px;transition:transform .2s}
+.btn-catalog:hover svg{transform:translateX(3px)}
+
+/* ── DELIVERY ── */
+#delivery{background:var(--cream)}
+.delivery-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:3rem;align-items:start}
+.map-container{background:var(--white);border:1px solid var(--border);border-radius:6px;overflow:hidden;box-shadow:0 4px 24px rgba(13,12,11,.06)}
+.map-header{padding:1rem 1.4rem;border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between}
+.map-header-title{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mid)}
+.map-locate-btn{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;background:var(--fire);color:var(--white);border:none;padding:.4rem .9rem;border-radius:2px;cursor:pointer;display:flex;align-items:center;gap:.4rem;transition:background .2s}
+.map-locate-btn:hover{background:var(--fire2)}
+#gmap{width:100%;height:320px;background:#e8e4df;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.85rem}
+.map-legend{padding:1rem 1.4rem;display:flex;gap:1.5rem;flex-wrap:wrap;border-top:1px solid var(--border2)}
+.leg-item{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--mid)}
+.leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+
+.checker-box{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:1.6rem;margin-top:1.5rem}
+.checker-title{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fire);margin-bottom:1rem}
+.checker-row{display:flex;gap:.8rem}
+.checker-input{flex:1;background:var(--cream);border:1px solid var(--border);border-radius:3px;font-family:'DM Sans',sans-serif;font-size:.9rem;padding:.75rem 1rem;color:var(--ink);outline:none;transition:border-color .2s}
+.checker-input:focus{border-color:var(--fire);background:var(--white)}
+.checker-btn{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;background:var(--fire);color:var(--white);border:none;padding:.75rem 1.2rem;cursor:pointer;border-radius:3px;white-space:nowrap;transition:background .2s;flex-shrink:0}
+.checker-btn:hover{background:var(--fire2)}
+.check-result{margin-top:1rem;padding:.9rem 1.1rem;border-left:3px solid;border-radius:0 4px 4px 0;font-size:.84rem;line-height:1.55;display:none}
+.check-result.show{display:block}
+.check-result.ok{border-color:var(--sage);background:rgba(58,125,92,.06);color:#1f6644}
+.check-result.warn{border-color:var(--amber);background:rgba(232,160,32,.06);color:#8c5e00}
+.check-result.bad{border-color:var(--fire);background:rgba(217,69,12,.06);color:var(--fire2)}
+
+.zone-stack{display:flex;flex-direction:column;gap:1rem}
+.zone-card{background:var(--white);border:1px solid var(--border);border-left:4px solid;border-radius:0 6px 6px 0;padding:1.4rem 1.6rem;transition:transform .2s,box-shadow .2s}
+.zone-card:hover{transform:translateX(4px);box-shadow:0 4px 20px rgba(13,12,11,.07)}
+.zone-card.z-green{border-left-color:var(--sage)}
+.zone-card.z-amber{border-left-color:var(--amber)}
+.zone-card.z-red{border-left-color:var(--fire)}
+.zone-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;gap:.5rem;flex-wrap:wrap}
+.zone-name{font-family:'DM Mono',monospace;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+.zone-badge{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .65rem;border-radius:20px}
+.badge-g{background:rgba(58,125,92,.1);color:var(--sage);border:1px solid rgba(58,125,92,.25)}
+.badge-a{background:rgba(232,160,32,.1);color:var(--amber);border:1px solid rgba(232,160,32,.25)}
+.badge-r{background:rgba(217,69,12,.1);color:var(--fire);border:1px solid rgba(217,69,12,.25)}
+.zone-desc{font-size:.82rem;color:var(--mid);line-height:1.55;margin-bottom:.9rem}
+.zone-meta{display:flex;gap:1.5rem;flex-wrap:wrap}
+.zm-item{display:flex;flex-direction:column;gap:.1rem}
+.zm-l{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.zm-v{font-size:.88rem;font-weight:600;color:var(--ink)}
+
+/* ── QUOTE ── */
+#quote{background:var(--white)}
+.quote-layout{display:grid;grid-template-columns:1fr 1.5fr;gap:5rem;align-items:start}
+.q-feature{display:flex;gap:1rem;margin-bottom:1.4rem;align-items:flex-start}
+.q-ico{width:40px;height:40px;background:rgba(217,69,12,.07);border:1px solid rgba(217,69,12,.15);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem}
+.q-ico-text h4{font-family:'DM Mono',monospace;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem;color:var(--ink)}
+.q-ico-text p{font-size:.82rem;color:var(--mid);line-height:1.5}
+.form-panel{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:2.5rem;position:relative;overflow:hidden}
+.form-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fire),var(--amber))}
+.form-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:1.8rem;padding-bottom:1.2rem;border-bottom:1px solid var(--border);color:var(--ink)}
+.form{display:flex;flex-direction:column;gap:1rem}
+.f-group{display:flex;flex-direction:column;gap:.4rem}
+.f-label{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.f-input,.f-select,.f-ta{background:var(--white);border:1px solid var(--border);border-radius:3px;font-family:'DM Sans',sans-serif;font-size:.9rem;padding:.8rem 1rem;color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s;width:100%;-webkit-appearance:none}
+.f-input:focus,.f-select:focus,.f-ta:focus{border-color:var(--fire);box-shadow:0 0 0 3px rgba(217,69,12,.08)}
+.f-ta{resize:vertical;min-height:90px}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.btn-submit{font-family:'DM Mono',monospace;font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;background:var(--fire);color:var(--white);border:none;padding:1rem;cursor:pointer;border-radius:3px;transition:background .2s,transform .15s;margin-top:.5rem;width:100%}
+.btn-submit:hover{background:var(--fire2);transform:translateY(-1px)}
+.btn-submit:disabled{background:var(--muted);cursor:not-allowed;transform:none}
+
+/* ── CONFIRMATION ── */
+.confirm-box{display:none;text-align:center;padding:3rem 2rem}
+.confirm-box.show{display:block}
+.confirm-icon{width:60px;height:60px;background:rgba(58,125,92,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 1.2rem}
+.confirm-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--ink);margin-bottom:.5rem}
+.confirm-sub{font-size:.88rem;color:var(--mid);line-height:1.6}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);color:rgba(255,255,255,.5);padding:4rem 3rem 2rem}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand-logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--white);margin-bottom:.8rem;display:block}
+.footer-brand-logo em{color:var(--fire);font-style:normal}
+.footer-tagline{font-size:.84rem;color:rgba(255,255,255,.35);line-height:1.65;max-width:220px}
+.footer-col h5{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--fire);margin-bottom:1rem}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.footer-col a{font-size:.84rem;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s}
+.footer-col a:hover{color:var(--white)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.08em;color:rgba(255,255,255,.22)}
+
+/* ── MODAL ── */
+.overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(13,12,11,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center}
+.overlay.open{display:flex}
+.modal{background:var(--white);border-radius:8px;padding:2.8rem;max-width:460px;width:92%;position:relative;animation:modalIn .3s cubic-bezier(.34,1.56,.64,1)}
+@keyframes modalIn{from{opacity:0;transform:scale(.93) translateY(12px)}to{opacity:1;transform:none}}
+.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;line-height:1;padding:.2rem .4rem;border-radius:3px;transition:color .2s,background .2s}
+.modal-close:hover{color:var(--ink);background:var(--dust)}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--ink);margin-bottom:.3rem}
+.modal-sub{font-size:.84rem;color:var(--mid);margin-bottom:1.8rem}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:2rem;right:2rem;z-index:300;background:var(--ink);color:var(--white);font-family:'DM Mono',monospace;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;padding:.9rem 1.6rem;border-radius:4px;transform:translateY(80px);opacity:0;transition:all .3s;border-left:3px solid var(--fire)}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* ── LOADING ── */
+.loading-shimmer{background:linear-gradient(90deg,var(--dust) 25%,var(--cream) 50%,var(--dust) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+@media(max-width:900px){
+  .nav{padding:0 1.5rem}
+  .nav-links{display:none}
+  .hero{grid-template-columns:1fr}
+  .hero-left{padding:4rem 1.5rem 3rem}
+  .hero-right{display:none}
+  section{padding:3.5rem 1.5rem}
+  .delivery-grid,.quote-layout{grid-template-columns:1fr;gap:2rem}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .stats{padding:1rem 1.5rem;gap:.8rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo"><em>Stafford</em>&nbsp;Enterprise</a>
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#delivery">Delivery</a></li>
+    <li><a href="#quote">Contact</a></li>
+    <li><a href="catalog.html">Catalog</a></li>
+  </ul>
+  <button class="nav-btn" onclick="openModal()">Get a Quote</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">Stafford Enterprise · Est. 1989</div>
+    <h1 class="hero-title">
+      BUILT<br>TO <span class="ghost">LAST</span><br>FOREVER
+    </h1>
+    <p class="hero-desc">Precision-manufactured concrete blocks engineered for structural integrity, architectural excellence, and decades of performance.</p>
+    <div class="hero-actions">
+      <button class="btn-fire" onclick="openModal()">Request a Quote</button>
+      <a href="#products" class="btn-ghost">View Products</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-blocks-visual" id="heroBlocks"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><span class="stat-n">35+</span><span class="stat-l">Years in Operation</span></div>
+  <div class="stat"><span class="stat-n">12M+</span><span class="stat-l">Blocks Produced</span></div>
+  <div class="stat"><span class="stat-n">2,400+</span><span class="stat-l">Projects Completed</span></div>
+  <div class="stat"><span class="stat-n">ISO</span><span class="stat-l">9001 Certified</span></div>
+</div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="products-head">
+    <div>
+      <div class="sec-eyebrow">Our Range</div>
+      <h2 class="sec-title">Product Range</h2>
+      <p class="sec-sub">Solid, hollow and paving blocks — engineered for every project demand.</p>
+    </div>
+    <a href="catalog.html" class="btn-fire" style="align-self:flex-end">Full Catalog →</a>
+  </div>
+  <div class="product-grid" id="productGrid">
+    <!-- Firebase driven -->
+    <div class="p-card loading-shimmer" style="height:260px;border-radius:4px"></div>
+    <div class="p-card loading-shimmer" style="height:260px;border-radius:4px"></div>
+    <div class="p-card loading-shimmer" style="height:260px;border-radius:4px"></div>
+    <div class="p-card loading-shimmer" style="height:260px;border-radius:4px"></div>
+    <div class="p-card loading-shimmer" style="height:260px;border-radius:4px"></div>
+  </div>
+</section>
+
+<!-- CATALOG BANNER -->
+<div class="cat-banner">
+  <div class="cat-banner-text">
+    <div class="cat-banner-title">Browse the Full Product Catalog</div>
+    <div class="cat-banner-sub">Live availability, full specifications and quote requests for every block we manufacture.</div>
+  </div>
+  <a href="catalog.html" class="btn-catalog">
+    Open Catalog
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+  </a>
+</div>
+
+<!-- DELIVERY -->
+<section id="delivery">
+  <div class="sec-eyebrow">Coverage</div>
+  <h2 class="sec-title">Delivery Zones</h2>
+  <p class="sec-sub">We detect your location to show the most relevant delivery info — or type your town below.</p>
+
+  <div class="delivery-grid">
+    <div>
+      <div class="map-container">
+        <div class="map-header">
+          <span class="map-header-title">📍 Your Location &amp; Delivery Zones</span>
+          <button class="map-locate-btn" onclick="locateMe()">
+            <span>📡</span> Use My Location
+          </button>
+        </div>
+        <div id="gmap">Loading map…</div>
+        <div class="map-legend">
+          <div class="leg-item"><div class="leg-dot" style="background:#3a7d5c"></div>Zone 1 — Local (Free delivery)</div>
+          <div class="leg-item"><div class="leg-dot" style="background:#e8a020"></div>Zone 2 — Regional (+5%)</div>
+          <div class="leg-item"><div class="leg-dot" style="background:#d9450c"></div>Zone 3 — Distant (+12%)</div>
+        </div>
+      </div>
+      <div class="checker-box">
+        <div class="checker-title">Check delivery availability</div>
+        <div class="checker-row">
+          <input class="checker-input" id="checkInput" placeholder="e.g. Alberton, Pretoria, Vereeniging…" onkeydown="if(event.key==='Enter')doCheck()">
+          <button class="checker-btn" onclick="doCheck()">Check</button>
+        </div>
+        <div class="check-result" id="checkResult"></div>
+      </div>
+    </div>
+
+    <div class="zone-stack">
+      <div class="zone-card z-green">
+        <div class="zone-head">
+          <span class="zone-name">Zone 1 — Local</span>
+          <span class="zone-badge badge-g">Available Now</span>
+        </div>
+        <p class="zone-desc">Primary area within 50 km of the factory. All product lines available for next-day or same-week delivery.</p>
+        <div class="zone-meta">
+          <div class="zm-item"><span class="zm-l">Lead Time</span><span class="zm-v">1–3 Days</span></div>
+          <div class="zm-item"><span class="zm-l">Delivery</span><span class="zm-v">Included</span></div>
+          <div class="zm-item"><span class="zm-l">Min. Order</span><span class="zm-v">1 Pallet</span></div>
+        </div>
+      </div>
+      <div class="zone-card z-amber">
+        <div class="zone-head">
+          <span class="zone-name">Zone 2 — Regional</span>
+          <span class="zone-badge badge-a">2–4 Day Lead</span>
+        </div>
+        <p class="zone-desc">Coverage extending to 150 km. Scheduled consolidated deliveries with a 5% freight surcharge.</p>
+        <div class="zone-meta">
+          <div class="zm-item"><span class="zm-l">Lead Time</span><span class="zm-v">2–4 Days</span></div>
+          <div class="zm-item"><span class="zm-l">Delivery</span><span class="zm-v">+5%</span></div>
+          <div class="zm-item"><span class="zm-l">Min. Order</span><span class="zm-v">3 Pallets</span></div>
+        </div>
+      </div>
+      <div class="zone-card z-red">
+        <div class="zone-head">
+          <span class="zone-name">Zone 3 — Distant</span>
+          <span class="zone-badge badge-r">Quote Required</span>
+        </div>
+        <p class="zone-desc">Areas beyond 150 km serviced on request. A 12% freight surcharge applies — contact us for a quote.</p>
+        <div class="zone-meta">
+          <div class="zm-item"><span class="zm-l">Lead Time</span><span class="zm-v">5–7 Days</span></div>
+          <div class="zm-item"><span class="zm-l">Delivery</span><span class="zm-v">+12%</span></div>
+          <div class="zm-item"><span class="zm-l">Min. Order</span><span class="zm-v">5 Pallets</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section id="quote">
+  <div class="quote-layout">
+    <div>
+      <div class="sec-eyebrow">Get in Touch</div>
+      <h2 class="sec-title">Request a Formal Quote</h2>
+      <p class="sec-sub" style="margin-bottom:2.5rem">Tell us about your project and we'll respond within 4 business hours.</p>
+      <div class="q-feature"><div class="q-ico">⚡</div><div class="q-ico-text"><h4>Fast Turnaround</h4><p>Quotes issued within 4 business hours.</p></div></div>
+      <div class="q-feature"><div class="q-ico">🚚</div><div class="q-ico-text"><h4>Site Delivery</h4><p>Direct-to-site delivery on scheduled windows.</p></div></div>
+      <div class="q-feature"><div class="q-ico">🏆</div><div class="q-ico-text"><h4>Certified Quality</h4><p>All products tested to SANS standards.</p></div></div>
+    </div>
+    <div class="form-panel">
+      <div id="quoteFormWrap">
+        <div class="form-title">Project Details</div>
+        <div class="form" id="quoteForm">
+          <div class="f-row">
+            <div class="f-group"><label class="f-label">First Name</label><input class="f-input" id="qFname" placeholder="John"></div>
+            <div class="f-group"><label class="f-label">Last Name</label><input class="f-input" id="qLname" placeholder="Smith"></div>
+          </div>
+          <div class="f-group"><label class="f-label">Company</label><input class="f-input" id="qCompany" placeholder="Smith Construction"></div>
+          <div class="f-group"><label class="f-label">Email</label><input class="f-input" id="qEmail" type="email" placeholder="john@smith.co.za"></div>
+          <div class="f-group"><label class="f-label">Phone</label><input class="f-input" id="qPhone" type="tel" placeholder="+27 82 000 0000"></div>
+          <div class="f-group">
+            <label class="f-label">Block Type(s) Needed</label>
+            <select class="f-select" id="qBlock">
+              <option value="">Select block type…</option>
+              <option>5 Inch Solid Block</option>
+              <option>6 Inch Solid Block</option>
+              <option>5 Inch Hollow Block</option>
+              <option>6 Inch Hollow Block</option>
+              <option>Paving Block</option>
+              <option>Multiple / Not sure</option>
+            </select>
+          </div>
+          <div class="f-group"><label class="f-label">Project Description</label><textarea class="f-ta" id="qDesc" placeholder="Describe your project, quantities, and delivery location…"></textarea></div>
+          <button class="btn-submit" id="qSubmitBtn" onclick="submitQuote()">Submit Quote Request</button>
+        </div>
+      </div>
+      <div class="confirm-box" id="quoteConfirm">
+        <div class="confirm-icon">✓</div>
+        <div class="confirm-title">Quote Request Submitted!</div>
+        <p class="confirm-sub">Thank you! We've received your details and will be in touch within 4 business hours.<br><br><strong>Reference ID:</strong> <span id="quoteRef" style="font-family:'DM Mono',monospace;color:var(--fire)"></span></p>
+        <br>
+        <button class="btn-fire" onclick="resetQuoteForm()" style="margin:0 auto;display:block">Submit Another</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <span class="footer-brand-logo"><em>Stafford</em> Enterprise</span>
+      <p class="footer-tagline">Precision-manufactured concrete and masonry blocks for serious construction.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Products</h5>
+      <ul>
+        <li><a href="catalog.html">5 Inch Solid Block</a></li>
+        <li><a href="catalog.html">6 Inch Solid Block</a></li>
+        <li><a href="catalog.html">5 Inch Hollow Block</a></li>
+        <li><a href="catalog.html">6 Inch Hollow Block</a></li>
+        <li><a href="catalog.html">Paving Block</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#">Bulk Supply</a></li>
+        <li><a href="#">Site Delivery</a></li>
+        <li><a href="#">Custom Orders</a></li>
+        <li><a href="#">Technical Support</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="#">+27 11 000 0000</a></li>
+        <li><a href="#">info@staffordenterprise.co.za</a></li>
+        <li><a href="#">14 Industrial Drive, Alrode</a></li>
+        <li><a href="#">Mon–Fri: 6am–5pm</a></li>
+        <li><a href="#">Sat: 6am–12pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Stafford Enterprise. All rights reserved.</span>
+    <span class="footer-copy">ISO 9001 Certified · SANS Compliant</span>
+  </div>
+</footer>
+
+<!-- QUICK QUOTE MODAL -->
+<div class="overlay" id="qModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title">Quick Quote</div>
+    <p class="modal-sub">Leave your details and we'll call you back within the hour.</p>
+    <div style="display:flex;flex-direction:column;gap:1rem">
+      <div class="f-group"><label class="f-label">Your Name</label><input class="f-input" id="mName" placeholder="Full name"></div>
+      <div class="f-group"><label class="f-label">Phone Number</label><input class="f-input" id="mPhone" type="tel" placeholder="+27 82 000 0000"></div>
+      <div class="f-group">
+        <label class="f-label">What do you need?</label>
+        <select class="f-select" id="mBlock">
+          <option>5 Inch Solid Block</option><option>6 Inch Solid Block</option>
+          <option>5 Inch Hollow Block</option><option>6 Inch Hollow Block</option>
+          <option>Paving Block</option><option>Mixed / multiple</option>
+        </select>
+      </div>
+      <button class="btn-submit" onclick="submitModalQuote()">Request Callback</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+import { getDatabase, ref, onValue, push, set } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBCwd03tnInf9xchK7PXNhp899tbslotSY",
+  authDomain: "martinogh-5af6c.firebaseapp.com",
+  databaseURL: "https://martinogh-5af6c-default-rtdb.firebaseio.com",
+  projectId: "martinogh-5af6c",
+  storageBucket: "martinogh-5af6c.firebasestorage.app",
+  messagingSenderId: "1087875764724",
+  appId: "1:1087875764724:web:0c40e027a15b1f4a65a9a1",
+  measurementId: "G-B42J1QQSTV"
+};
+const app = initializeApp(firebaseConfig);
+const db  = getDatabase(app);
+
+window._db  = db;
+window._ref = ref;
+window._push = push;
+window._set  = set;
+
+const DEFAULT_PRODUCTS = [
+  {id:'solid-5',  name:'5 Inch Solid Block',  desc:'High-density solid block for load-bearing walls, boundary walls and foundations.',    specs:['127×190×390mm','15+ MPa','Load-Bearing'], status:'in-stock', c1:'#c8bfb0',c2:'#b5a890'},
+  {id:'solid-6',  name:'6 Inch Solid Block',  desc:'Heavy-duty 6 inch solid block for structural and retaining wall applications.',         specs:['152×190×390mm','17+ MPa','Structural'],   status:'in-stock', c1:'#b5a890',c2:'#9e9488'},
+  {id:'hollow-5', name:'5 Inch Hollow Block', desc:'Classic hollow core block for structural walls, boundary walls and general masonry.',   specs:['127×190×390mm','7–10 MPa','Bulk Pricing'],status:'in-stock', c1:'#9e9488',c2:'#7d756c'},
+  {id:'hollow-6', name:'6 Inch Hollow Block', desc:'Standard 6 inch hollow block offering excellent strength-to-weight ratio.',             specs:['152×190×390mm','10–12 MPa','High Volume'],status:'in-stock', c1:'#7d756c',c2:'#6b635a'},
+  {id:'paving',   name:'Paving Block',         desc:'Interlocking paving blocks for driveways, walkways and landscaping.',                   specs:['200×100×60mm','Interlocking','12 Colours'],status:'in-stock', c1:'#d9450c',c2:'#c8bfb0'}
+];
+
+function tagHtml(status){
+  const map={
+    'in-stock':['in-stock','● In Stock'],
+    'limited': ['limited','◐ Limited'],
+    'out':     ['out','○ Out of Stock']
+  };
+  const [cls,label]=map[status]||map['in-stock'];
+  return `<span class="avail-tag ${cls}">${label}</span>`;
+}
+
+function renderProducts(products){
+  const grid=document.getElementById('productGrid');
+  grid.innerHTML=products.map(p=>`
+    <div class="p-card">
+      <div class="p-icon">
+        ${[0,1,2,3,4,5].map(i=>`<div class="pi" style="background:${i%2===0?p.c1:p.c2}"></div>`).join('')}
+      </div>
+      <div class="p-name">${p.name}</div>
+      <p class="p-desc">${p.desc}</p>
+      <div class="p-specs">${p.specs.map(s=>`<span class="spec">${s}</span>`).join('')}</div>
+      ${tagHtml(p.status)}
+    </div>
+  `).join('');
+}
+
+// Real-time listener
+const prodRef = ref(db, 'products');
+onValue(prodRef, snap => {
+  const data = snap.val();
+  if(data){
+    const arr = Object.values(data);
+    renderProducts(arr.length ? arr : DEFAULT_PRODUCTS);
+  } else {
+    // Seed defaults
+    DEFAULT_PRODUCTS.forEach(p => set(ref(db,`products/${p.id}`), p));
+    renderProducts(DEFAULT_PRODUCTS);
+  }
+});
+
+// Submit full quote
+window.submitQuote = async function(){
+  const fname = document.getElementById('qFname').value.trim();
+  const lname = document.getElementById('qLname').value.trim();
+  const email = document.getElementById('qEmail').value.trim();
+  const phone = document.getElementById('qPhone').value.trim();
+  const company = document.getElementById('qCompany').value.trim();
+  const block = document.getElementById('qBlock').value;
+  const desc = document.getElementById('qDesc').value.trim();
+
+  if(!fname||!email||!phone||!block){
+    showToast('Please fill in all required fields');
+    return;
+  }
+  const btn = document.getElementById('qSubmitBtn');
+  btn.disabled=true; btn.textContent='Sending…';
+
+  const refId = 'SE-' + Date.now().toString(36).toUpperCase();
+  const quoteData = {
+    id: refId, firstName:fname, lastName:lname,
+    company, email, phone, blockType:block,
+    description:desc, status:'new',
+    timestamp: new Date().toISOString(),
+    source: 'Main Website'
+  };
+  try {
+    await set(window._ref(db,`quotes/${refId}`), quoteData);
+    document.getElementById('quoteRef').textContent = refId;
+    document.getElementById('quoteFormWrap').style.display='none';
+    document.getElementById('quoteConfirm').classList.add('show');
+  } catch(e){
+    showToast('Error submitting — please try again');
+    btn.disabled=false; btn.textContent='Submit Quote Request';
+  }
+};
+
+window.submitModalQuote = async function(){
+  const name = document.getElementById('mName').value.trim();
+  const phone = document.getElementById('mPhone').value.trim();
+  const block = document.getElementById('mBlock').value;
+  if(!name||!phone){ showToast('Please fill in your name and phone'); return; }
+  const refId = 'SE-' + Date.now().toString(36).toUpperCase();
+  await set(window._ref(db,`quotes/${refId}`), {
+    id:refId, firstName:name, phone, blockType:block,
+    status:'new', timestamp:new Date().toISOString(), source:'Quick Quote Modal'
+  });
+  closeModal();
+  showToast('✓ Callback request received — we\'ll be in touch shortly!');
+};
+</script>
+
+<script>
+// Nav scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Hero blocks
+(function(){
+  const colors = ['#1a1916','#252220','#2e2b28','#3a3632','#4a4440','#b5a890','#9e9488','#7d756c','#d9450c','#c8bfb0'];
+  const grid = document.getElementById('heroBlocks');
+  for(let i=0;i<35;i++){
+    const d=document.createElement('div');
+    d.className='hb';
+    d.style.background=colors[Math.floor(Math.random()*colors.length)];
+    d.style.animationDelay=(Math.random()*4)+'s';
+    grid.appendChild(d);
+  }
+})();
+
+// Modal
+function openModal(){document.getElementById('qModal').classList.add('open');document.body.style.overflow='hidden'}
+function closeModal(){document.getElementById('qModal').classList.remove('open');document.body.style.overflow=''}
+
+function resetQuoteForm(){
+  document.getElementById('quoteFormWrap').style.display='';
+  document.getElementById('quoteConfirm').classList.remove('show');
+  ['qFname','qLname','qCompany','qEmail','qPhone','qDesc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('qBlock').selectedIndex=0;
+  document.getElementById('qSubmitBtn').disabled=false;
+  document.getElementById('qSubmitBtn').textContent='Submit Quote Request';
+}
+
+// Toast
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3500);
+}
+window.showToast=showToast;
+
+// Delivery zone checker
+const LOCAL=['alberton','germiston','boksburg','benoni','brakpan','springs','edenvale','bedfordview','kempton park','kempton','johannesburg','joburg','soweto','lenasia','roodepoort','sandton','randburg','midrand','centurion','pretoria','tshwane','ekurhuleni','vosloorus','katlehong','thokoza','alrode','heidelberg','nigel','meyerton','brackenhurst'];
+const REGIONAL=['krugersdorp','randfontein','westonaria','carletonville','potchefstroom','klerksdorp','vereeniging','vanderbijlpark','sasolburg','parys','standerton','witbank','emalahleni','secunda','bethal','ermelo','evander','delmas','bronkhorstspruit','cullinan','bela-bela','warmbaths','hammanskraal','rustenburg','brits','hartbeespoort','magaliesburg'];
+
+function doCheck(){
+  const v=document.getElementById('checkInput').value.trim().toLowerCase();
+  const r=document.getElementById('checkResult');
+  if(!v){r.className='check-result warn show';r.innerHTML='⚠ Please enter a town name.';return}
+  const name=v.replace(/\b\w/g,c=>c.toUpperCase());
+  if(LOCAL.some(a=>v.includes(a)||a.includes(v))){
+    r.className='check-result ok show';
+    r.innerHTML=`✅ <strong>${name}</strong> — Zone 1 Local. <strong>Free delivery</strong>, lead time 1–3 business days.`;
+  } else if(REGIONAL.some(a=>v.includes(a)||a.includes(v))){
+    r.className='check-result warn show';
+    r.innerHTML=`🟠 <strong>${name}</strong> — Zone 2 Regional. <strong>+5% freight surcharge</strong>, lead time 2–4 days.`;
+  } else {
+    r.className='check-result bad show';
+    r.innerHTML=`🔴 <strong>${name}</strong> — Zone 3 Distant. <strong>+12% surcharge</strong>. <a href="#quote" style="color:inherit">Contact us</a> for a quote.`;
+  }
+}
+window.doCheck=doCheck;
+
+// Google Maps with geolocation
+let map, userMarker;
+window.initMap = function(){
+  const mapEl = document.getElementById('gmap');
+  mapEl.style.height='320px';
+  // Default centre (Johannesburg area)
+  const defaultCenter = {lat:-26.2041,lng:28.0473};
+  map = new google.maps.Map(mapEl, {
+    zoom:10, center:defaultCenter,
+    styles:[
+      {elementType:'geometry',stylers:[{color:'#f5f0eb'}]},
+      {elementType:'labels.text.fill',stylers:[{color:'#4a4540'}]},
+      {elementType:'labels.text.stroke',stylers:[{color:'#fdfcfb'}]},
+      {featureType:'road',elementType:'geometry',stylers:[{color:'#e8e2da'}]},
+      {featureType:'road.highway',elementType:'geometry',stylers:[{color:'#d4c8bc'}]},
+      {featureType:'water',elementType:'geometry',stylers:[{color:'#c8d8e8'}]},
+      {featureType:'poi',stylers:[{visibility:'off'}]},
+      {featureType:'transit',stylers:[{visibility:'off'}]}
+    ],
+    mapTypeControl:false, streetViewControl:false, fullscreenControl:false
+  });
+  // Draw zone circles around factory
+  const factory = {lat:-26.3056,lng:28.1228}; // Alrode
+  new google.maps.Circle({map,center:factory,radius:50000, fillColor:'#3a7d5c',fillOpacity:.08,strokeColor:'#3a7d5c',strokeWeight:1.5,strokeOpacity:.5});
+  new google.maps.Circle({map,center:factory,radius:150000,fillColor:'#e8a020',fillOpacity:.06,strokeColor:'#e8a020',strokeWeight:1.5,strokeOpacity:.4,strokeDashArray:'5,5'});
+  new google.maps.Marker({map,position:factory,icon:{path:google.maps.SymbolPath.CIRCLE,scale:8,fillColor:'#d9450c',fillOpacity:1,strokeColor:'#fff',strokeWeight:2},title:'Stafford Factory'});
+  // Try geolocation
+  locateMe();
+};
+
+window.locateMe = function(){
+  if(!navigator.geolocation){showToast('Geolocation not supported');return}
+  navigator.geolocation.getCurrentPosition(pos=>{
+    if(!map) return;
+    const loc = {lat:pos.coords.latitude,lng:pos.coords.longitude};
+    if(userMarker) userMarker.setMap(null);
+    userMarker = new google.maps.Marker({map,position:loc,title:'Your Location',icon:{path:google.maps.SymbolPath.CIRCLE,scale:10,fillColor:'#d9450c',fillOpacity:.9,strokeColor:'#fff',strokeWeight:2.5}});
+    map.setCenter(loc);
+    map.setZoom(11);
+    // Reverse geocode to check zone
+    const gc = new google.maps.Geocoder();
+    gc.geocode({location:loc},results=>{
+      if(results&&results[0]){
+        const town=(results[0].address_components.find(c=>c.types.includes('locality'))||{}).long_name||'';
+        if(town){
+          document.getElementById('checkInput').value=town;
+          doCheck();
+        }
+      }
+    });
+  },()=>showToast('Could not get your location'));
+};
+</script>
+<!-- Load Google Maps (replace YOUR_API_KEY with a real key for production) -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCwd03tnInf9xchK7PXNhp899tbslotSY&callback=initMap" async defer></script>
+</body>
+</html>
 
